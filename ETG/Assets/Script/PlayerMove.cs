@@ -217,11 +217,15 @@ public class PlayerMove : MonoBehaviour
             _sr.flipX = false;
             if (MousePosition() > -22.5f && MousePosition() < 22.5f) //위
             {
+                //if (_sr.flipX && MousePosition() > 15.0f) _sr.flipX = false;
+                //else if (!_sr.flipX && MousePosition() < -15.0f ) _sr.flipX = true;
                 _ani.SetInteger("Dir_X", 0);
                 _ani.SetInteger("Dir_Y", 1);
             }
-            else if (MousePosition() > 157.5f && MousePosition() < -157.5f) //아래
+            else if (MousePosition() > 157.5f || MousePosition() < -157.5f) //아래
             {
+                //if (_sr.flipX && MousePosition() < 165.0f) _sr.flipX = false;
+                //else if (!_sr.flipX && MousePosition() > -165.0f) _sr.flipX = true;
                 _ani.SetInteger("Dir_X", 0);
                 _ani.SetInteger("Dir_Y", -1);
             }

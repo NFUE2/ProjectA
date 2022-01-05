@@ -9,7 +9,6 @@ public class PlayerFire : MonoBehaviour
     GameObject[] _weapon;
     GameObject _item;
 
-    Image _image;
     void Start()
     {
         
@@ -20,8 +19,6 @@ public class PlayerFire : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         //Cursor.visible = false; //커서를 안보이게 해줍니다.
         Vector3 dir = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
-        dir = _image.transform.position;
 
         if(Input.GetMouseButtonDown(0))
         {
