@@ -37,11 +37,8 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(MousePosition());
         Battle = true;
 
-        Debug.Log("배틀" + _ani.GetBool("Battle"));
-        Debug.Log(_ani.GetBool("Run"));
         v = Input.GetAxisRaw("Vertical");
         h = Input.GetAxisRaw("Horizontal");
         dir = h * Vector3.right + v * Vector3.up;
@@ -67,7 +64,6 @@ public class PlayerMove : MonoBehaviour
             if (dir == Vector3.zero) state = PlayerState.Idle;
             RunMove();
         }
-        
 
         if(Input.GetMouseButtonDown(1) && Roll == false) 
         {
@@ -78,45 +74,7 @@ public class PlayerMove : MonoBehaviour
             _ani.SetTrigger("Rolling");
             StartCoroutine(Rolling());
         }
-        Debug.Log(state);
-
         this.transform.position += dir * _speed * Time.deltaTime;
-
-
-        //if(state == PlayerState.Idle || state == PlayerState.Run)
-        //{
-        //    RunMove();
-        //}
-        //else if (state == PlayerState.Rolling)
-        //{
-        //    v = 0; //조작해도 못움직이게 막기
-        //    h = 0;
-        //    RunMove();
-        //}
-
-        //else if(state == PlayerState.Battle_Idle || state == PlayerState.Battle_Run)
-        //{
-        //    _ani.SetBool("Battle", true);
-        //    dir = h * Vector3.right + v * Vector3.up;
-        //    BattleMove();
-        //}
-
-        //if (dir == Vector3.zero)
-        //{
-        //    if(state == PlayerState.Run)
-        //    {
-        //        state = PlayerState.Idle;
-        //    }
-        //    else if (state == PlayerState.Battle_Run)
-        //    {
-        //        state = PlayerState.Battle_Idle;
-        //    }
-        //    _ani.SetBool("Run", false);
-        //}
-
-
-        //this.transform.position += dir * _speed * Time.deltaTime;
-
     }
 
     IEnumerator Rolling()
@@ -211,21 +169,18 @@ public class PlayerMove : MonoBehaviour
 
     private void BattleMove()
     {
+        GameObject _hand = this.transform.GetChild(1).gameObject;
         hand.SetActive(true);
         if (MousePosition() > -22.5f || MousePosition() < -157.5f)
         {
             _sr.flipX = false;
             if (MousePosition() > -22.5f && MousePosition() < 22.5f) //위
             {
-                //if (_sr.flipX && MousePosition() > 15.0f) _sr.flipX = false;
-                //else if (!_sr.flipX && MousePosition() < -15.0f ) _sr.flipX = true;
                 _ani.SetInteger("Dir_X", 0);
                 _ani.SetInteger("Dir_Y", 1);
             }
             else if (MousePosition() > 157.5f || MousePosition() < -157.5f) //아래
             {
-                //if (_sr.flipX && MousePosition() < 165.0f) _sr.flipX = false;
-                //else if (!_sr.flipX && MousePosition() > -165.0f) _sr.flipX = true;
                 _ani.SetInteger("Dir_X", 0);
                 _ani.SetInteger("Dir_Y", -1);
             }
@@ -257,8 +212,17 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        SpriteRenderer _gundir = hand.GetComponent<SpriteRenderer>();
-        if (_gundir.flipX && (MousePosition() < -15.0f && MousePosition() > -165.0f)) _gundir.flipX = false;
-        else if(!_gundir.flipX && (MousePosition() > 15.0f && MousePosition() < 165.0f)) _gundir.flipX = true;
+        GameObject _handle = hand.transform.GetChild(0).gameObject;
+        if (_handle.transform.position.x > 0 && (MousePosition() < -15.0f && MousePosition() > -165.0f))
+        {
+            _hand.transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
+            Debug.Log("!");
+        }
+        else if (_handle.transform.position.x < 0 && (MousePosition() > 15.0f && MousePosition() < 165.0f))
+        {
+            _hand.transform.rotation = Quaternion.AngleAxis(180, Vector3.down);
+            Debug.Log("!!");
+        }
+        //Debug.Log(MousePosition());
     }
 }

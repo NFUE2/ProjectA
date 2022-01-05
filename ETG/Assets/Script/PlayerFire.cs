@@ -1,31 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 
 public class PlayerFire : MonoBehaviour
 {
-    GameObject[] _weapon;
-    GameObject _item;
+    Transform weapon;
+    GameObject _bullet;
+    Transform FirePosition;
 
     void Start()
     {
-        
+        weapon = this.transform.GetChild(0).transform;
+        _bullet = this.transform.GetChild(0).GetChild(2).gameObject;
+        FirePosition = this.transform.GetChild(0).GetChild(1).transform;
     }
 
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        //Cursor.visible = false; //커서를 안보이게 해줍니다.
-        Vector3 dir = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        GunRotate();
+    }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            Vector3 shoot = this.transform.position - dir;
-            
-        }
-
-
+    private void GunRotate() //총 회전
+    {
+        Vector3 Target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Target.z = weapon.transform.position.z;
+        Vector3 dir = Target - weapon.transform.position;
+        float angle = Mathf.Atan2(dir.x,dir.y) * Mathf.Rad2Deg;
+        weapon.transform.rotation = Quaternion.AngleAxis(-angle, Vector3.forward); //각도,축
     }
 }

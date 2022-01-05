@@ -55,11 +55,9 @@
   <ItemGroup>
     <Compile Include="Assets\Script\EnemyManager.cs" />
     <Compile Include="Assets\Script\FollowCamera.cs" />
-    <Compile Include="Assets\Script\IGunManager.cs" />
-    <Compile Include="Assets\Script\MouseImage.cs" />
+    <Compile Include="Assets\Script\GunManager.cs" />
     <Compile Include="Assets\Script\PlayerFire.cs" />
     <Compile Include="Assets\Script\PlayerMove.cs" />
-    <Compile Include="Assets\Script\Ray.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
