@@ -5,19 +5,38 @@ using UnityEngine;
 public class PlayerFire : MonoBehaviour
 {
     Transform weapon;
+    GameObject bullet;
     GameObject _bullet;
     Transform FirePosition;
+    bool _fire;
+    Vector3 _target;
+    GunManager GM;
 
     void Start()
     {
+        _fire = false;
         weapon = this.transform.GetChild(0).transform;
-        _bullet = this.transform.GetChild(0).GetChild(2).gameObject;
+        bullet = this.transform.GetChild(0).GetChild(2).gameObject;
         FirePosition = this.transform.GetChild(0).GetChild(1).transform;
+        GM = this.GetComponentInChildren<GunManager>();
     }
 
     void Update()
     {
         GunRotate();
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            _bullet = Instantiate(bullet);
+            _bullet.SetActive(true);
+            _bullet.transform.position = FirePosition.transform.position;
+            _fire = true;
+        }
+
+        if (_fire == true)
+        {
+            _bullet.transform.position += _target * 5.0f * Time.deltaTime; 
+        }
     }
 
     private void GunRotate() //총 회전

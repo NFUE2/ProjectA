@@ -2,74 +2,107 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class EnemyManager : MonoBehaviour
 {
-    private float _hp;
-    private float _speed;
-    private float _playerRange;
-    private float _shootRange;
+    //거리까지 걸어가고
+    //딜레이가 되면 발사
+    [SerializeField, Range(0, 50)]
+    float _hp;
+
+    [SerializeField, Range(0, 50)]
+    float _speed;
+
+    [SerializeField, Range(0, 50)]
+    float _playerdistance;
+
+    [SerializeField, Range(0, 50)]
+    float _gunRange;
+
+    [SerializeField, Range(0, 50)]
+    float _delay;
+
     Transform _player;
 
-    [SerializeField, Range(1.0f, 100.0f)]
-    float _sethp;
+    NavMeshAgent _agent;
 
-    [SerializeField, Range(1.0f, 10.0f)]
-    float _setspeed; 
-
-    [SerializeField, Range(1.0f, 100.0f)]
-    float _setplayerRange;
-
-    [SerializeField, Range(1.0f, 100.0f)]
-    float _setshootRange;
-
-    enum EnemyState
-    {
-        Walk,
-        Attack,
-        Die
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player").transform;
-
-        _hp = _sethp;
-        _speed = _setspeed;
-        _playerRange = _setplayerRange;
-        _shootRange = _setshootRange;
+        _agent = this.GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(this.transform.position,_player.position) > _playerRange)
-        {
-            Moving();
-        }
-        else
-        {
-            this.transform.position = Vector3.zero;
-        }
+        Move();
 
-        if(Vector3.Distance(this.transform.position, _player.position) < _shootRange)
-        {
-            Attack();
-        }
+        //if ((Vector3.Distance(_player.position, this.transform.position) > _playerdistance) || Vector3.Distance(_player.position, this.transform.position) > _gunRange)
+        //{
+        //    Move();
+        //}
 
+        //if (Vector3.Distance(_player.position, this.transform.position) <= _gunRange)
+        //{
+        //    Shot();
+        //}
 
     }
 
-    private void Moving()
+    private void Move()
     {
-        //Vector3 dir = _speed * Time.deltaTime; 플레이어를 향해서 이동
-        //맵 타일을 계산해서 이동
+        Vector3 dir = _player.position;
+
+        Debug.DrawRay(this.transform.position, _player.position, Color.red);
+
+        RaycastHit hit;
+        if(Physics.Raycast(this.transform.position,_player.position,out hit, 100.0f))
+        {
+            Debug.Log(hit.transform.name);
+        }
+
+        //플레이어와 적 사이에 방해물이 없을때의 이동
+        
+        //if()
+        //{ 
+        //    float distance_x = _player.position.x - this.transform.position.x;
+        //    float distance_y = _player.position.y - this.transform.position.y;
+        //    if(Mathf.Abs(distance_x) > Mathf.Abs(distance_y)) //짧은거리를 먼저 가게할예정
+        //    {
+        //        if(distance_y > 0 )
+        //        {
+        //            dir = Vector3.up;
+        //        }
+        //        else if(distance_y < 0)
+        //        {
+        //            dir = Vector3.down;
+        //        }
+        //    }
+        //    else if (distance_x <= distance_y)
+        //    {
+        //        if(distance_x > 0)
+        //        {
+        //            dir = Vector3.down;
+        //        }
+        //        else if(distance_x < 0)
+        //        {
+        //            dir = Vector3.down;
+        //        }
+        //    }
+        //}
+
+        //this.transform.position += dir * _speed * Time.deltaTime; //
     }
 
-    private void Attack()
+    private void Shot()
     {
-        //공격해야함
-        //각자 무기가 다름
+        //float _shootdelay = 0.0f;
+        //_shootdelay += Time.deltaTime;
+
+        //if(_delay == _shootdelay)
+        //{
+
+        //}
     }
 }
