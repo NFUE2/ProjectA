@@ -216,12 +216,10 @@ public class PlayerMove : MonoBehaviour
         if (_handle.transform.position.x > 0 && (MousePosition() < -15.0f && MousePosition() > -165.0f))
         {
             _hand.transform.rotation = Quaternion.AngleAxis(180, Vector3.up);
-            Debug.Log("!");
         }
         else if (_handle.transform.position.x < 0 && (MousePosition() > 15.0f && MousePosition() < 165.0f))
         {
             _hand.transform.rotation = Quaternion.AngleAxis(180, Vector3.down);
-            Debug.Log("!!");
         }
         //Debug.Log(MousePosition());
     }

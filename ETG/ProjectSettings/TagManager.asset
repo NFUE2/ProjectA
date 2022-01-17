@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - bullet
   - 
   - 
   - 
@@ -40,4 +41,25 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 2139948563
+    locked: 0
+  - name: StartTile
+    uniqueID: 1305706851
+    locked: 0
+  - name: Statue_Case
+    uniqueID: 671918423
+    locked: 0
+  - name: Statue_Bottom
+    uniqueID: 2506259765
+    locked: 0
+  - name: Statue
+    uniqueID: 1863816013
+    locked: 0
+  - name: Gungeon_Edge
+    uniqueID: 139516273
+    locked: 0
+  - name: Gungeon_Tile
+    uniqueID: 4183161765
     locked: 0
